@@ -109,9 +109,9 @@ const SearchResultsPage: React.FC = () => {
   </div>)
 
   const Pagination = () => (<div className="pagination-controls">
-    <button onClick={() => handlePageChange(pageNumber - 1)} disabled={pageNumber === 1}>Previous</button>
+    <button onClick={() => handlePageChange(pageNumber - 1)} disabled={pageNumber === 1}>＜</button>
     <span>Page {pageNumber} of {Math.ceil(numFound / pageSize)}</span>
-    <button onClick={() => handlePageChange(pageNumber + 1)} disabled={pageNumber >= Math.ceil(numFound / pageSize)}>Next</button>
+    <button onClick={() => handlePageChange(pageNumber + 1)} disabled={pageNumber >= Math.ceil(numFound / pageSize)}>＞</button>
   </div>)
 
   return (

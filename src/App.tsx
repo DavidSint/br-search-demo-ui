@@ -18,7 +18,7 @@ const App: React.FC = () => {
           </Routes>
         </main>
         <footer className="app-footer">
-          <p>Made by David Sint</p>
+          <p>Vibe-Coded by David Sint</p>
         </footer>
       </div>
     </Router>
