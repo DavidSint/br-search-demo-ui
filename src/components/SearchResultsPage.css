@@ -101,3 +101,41 @@
 .result-card-link:hover {
   background-color: #218838;
 }
+
+.results-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem 0;
+}
+
+.pagination-controls button {
+  padding: 0.5rem 1rem;
+  margin: 0 0.5rem;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.pagination-controls button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.page-size-selector {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.page-size-selector label {
+  margin-right: 0.5rem;
+}
+
