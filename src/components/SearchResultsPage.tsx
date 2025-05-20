@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import type { BloomreachApiResponse, SearchResultDoc } from '../types';
+import type { BloomreachApiResponse } from '../types';
 import './SearchResultsPage.css';
 
 const fetchSearchResults = async (query: string): Promise<BloomreachApiResponse> => {
@@ -15,7 +15,7 @@ const fetchSearchResults = async (query: string): Promise<BloomreachApiResponse>
 const SearchResultsPage: React.FC = () => {
   const [searchParams] = useSearchParams();
   const query = searchParams.get('query');
-  const [results, setResults] = useState<SearchResultDoc[]>([]);
+  const [data, setData] = useState<BloomreachApiResponse>();
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [numFound, setNumFound] = useState<number>(0);
@@ -26,12 +26,12 @@ const SearchResultsPage: React.FC = () => {
       setError(null);
       fetchSearchResults(query)
         .then((data) => {
-          setResults(data.response.docs);
+          setData(data);
           setNumFound(data.response.numFound);
         })
         .catch(() => {
           setError('Failed to fetch search results. Please try again later.');
-          setResults([]);
+          setData(undefined);
           setNumFound(0);
         })
         .finally(() => {
@@ -60,14 +60,28 @@ const SearchResultsPage: React.FC = () => {
     );
   }
 
+  if (data?.keywordRedirect?.['redirected url']) {
+    return (
+      <div className="results-container no-results">
+        <h2>Redirect found for "{query}"!</h2>
+        <p>If this were a real application, you would be redirected to {data.keywordRedirect['redirected url']}</p>
+      </div>
+    );
+  }
+
   return (
     <div className="results-container">
       <h1 className="results-title">
-        Search Results for "{query}"
+        {data?.autoCorrectQuery ? `Couldn't find "${query}" - searched for "${data.autoCorrectQuery}"` : `Search Results for "${query}"`}
       </h1>
+      {data?.did_you_mean?.length && data?.did_you_mean?.length > 0 ?
+        (<h2>
+          Did you mean: {<a href={`/search-results?query=${data.did_you_mean[0]}`}>{data.did_you_mean[0]}</a>}
+        </h2>)
+      : ""}
       <p className="results-count">{numFound} item(s) found</p>
       <div className="results-grid">
-        {results.map((doc) => (
+        {data?.response.docs.map((doc) => (
           <div key={doc.pid} className="result-card">
             <h2 className="result-card-title">{doc.title}</h2>
             {/* Sanitizing HTML is important if it comes from an untrusted source.
