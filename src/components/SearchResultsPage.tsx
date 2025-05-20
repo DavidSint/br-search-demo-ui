@@ -1,16 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import type { BloomreachApiResponse } from '../types';
+import type { BloomreachApiResponse, FetchSearchResultsParams } from '../types';
 import './SearchResultsPage.css';
 
-interface FetchSearchResultsParams {
-  query: string;
-  start: number;
-  rows: number;
-}
-
 const fetchSearchResults = async ({ query, start, rows }: FetchSearchResultsParams): Promise<BloomreachApiResponse> => {
-  const endpoint = `https://staging-core.dxpapi.com/api/v1/core/?fl=pid,title,introduction,url&_br_uid_2=1234567890&search_type=keyword&start=${start}&rows=${rows}&request_id=123456&account_id=${import.meta.env.VITE_ACCOUNT_ID}&domain_key=${import.meta.env.VITE_DOMAIN_KEY}&request_type=search&url=www.example.com&q=${encodeURIComponent(query.trim())}`
+  const endpoint = `https://staging-core.dxpapi.com/api/v1/core/?fl=pid,title,introduction,url&_br_uid_2=1234567890&search_type=keyword&start=${encodeURIComponent(start)}&rows=${encodeURIComponent(rows)}&request_id=123456&account_id=${import.meta.env.VITE_ACCOUNT_ID}&domain_key=${import.meta.env.VITE_DOMAIN_KEY}&request_type=search&url=www.example.com&q=${encodeURIComponent(query.trim())}`
 
   const response = await fetch(endpoint);
   const data = await response.json();

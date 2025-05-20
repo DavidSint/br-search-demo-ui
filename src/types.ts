@@ -24,3 +24,9 @@ export interface BloomreachApiResponse {
   keywordRedirect?: KeywordRedirect;
   'relaxed.query'?: string;
 }
+
+export interface FetchSearchResultsParams {
+  query: string;
+  start: number;
+  rows: number;
+}
