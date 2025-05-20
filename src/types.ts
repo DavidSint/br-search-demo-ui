@@ -22,4 +22,5 @@ export interface BloomreachApiResponse {
   did_you_mean?: string[];
   autoCorrectQuery?: string;
   keywordRedirect?: KeywordRedirect;
+  'relaxed.query'?: string;
 }

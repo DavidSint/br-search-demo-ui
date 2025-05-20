@@ -72,7 +72,7 @@ const SearchResultsPage: React.FC = () => {
   return (
     <div className="results-container">
       <h1 className="results-title">
-        {data?.autoCorrectQuery ? `Couldn't find "${query}" - searched for "${data.autoCorrectQuery}"` : `Search Results for "${query}"`}
+        {data?.autoCorrectQuery || data?.['relaxed.query'] ? `No results for "${query}" - searched for "${data.autoCorrectQuery || data['relaxed.query']}"` : `Search Results for "${query}"`}
       </h1>
       {data?.did_you_mean?.length && data?.did_you_mean?.length > 0 ?
         (<h2>
