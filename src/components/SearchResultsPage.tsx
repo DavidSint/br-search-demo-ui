@@ -24,7 +24,7 @@ const SearchResultsPage: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [numFound, setNumFound] = useState<number>(0);
-  const defaultPageSize = 6;
+  const defaultPageSize = 3;
 
   const pageNumberParam = searchParams.get('pageNumber');
   const pageSizeParam = searchParams.get('pageSize');
